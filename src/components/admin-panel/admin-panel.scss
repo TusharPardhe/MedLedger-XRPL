@@ -1,0 +1,82 @@
+.admin-panel {
+    width: 100%;
+    padding: 1em;
+
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 2em;
+        color: #4a5568;
+        font-size: 2.5em;
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        letter-spacing: 1.5px;
+        background: #ff5900;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .card-header {
+        margin-bottom: 20px;
+        text-align: left;
+        h2 {
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        span {
+            font-weight: lighter;
+            color: gray;
+        }
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px 0;
+
+        span {
+            font-weight: lighter;
+        }
+
+        .requests-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 10px;
+
+            th,td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f9f9f9;
+            }
+
+            .accept-btn {
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #45a049;
+                }
+            }
+        }
+    }
+
+    .modal-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+    }
+}

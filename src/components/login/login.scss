@@ -1,0 +1,54 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 1em;
+
+    .refresh-button {
+        border: none;
+        background: none;
+        color: #000;
+        font-size: 20px;
+        padding: 20px 0 0 0;
+        cursor: pointer;
+        transition: transform 0.6s ease;
+
+        &.rotating {
+            transform: rotate(360deg);
+        }
+    }
+
+    h2 {
+        font-size: 2.5em;
+        font-weight: 600;
+        color: #4a4a4a;
+        margin-bottom: 2em;
+    }
+
+    p {
+        font-size: 1.2em;
+        color: #888;
+    }
+
+    .img-container {
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+
+        .ui.image {
+            max-width: 300px;
+
+            img {
+                max-width: 100%;
+                height: auto;
+                border: 2px solid #888;
+                border-radius: 8px;
+                padding: 1em;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+            }
+        }
+    }
+}
