@@ -24,7 +24,6 @@ export const generateAccount = () => {
             } else {
                 resolve(newAccount);
             }
-
         } catch (error) {
             console.log('Error generating account:', error);
             reject(null);
@@ -61,7 +60,9 @@ export const generateNFTForAccount = async (account, requester) => {
             const response = await ApiCall({
                 method: 'POST',
                 url: 'generateQR',
-                data: transaction,
+                data: {
+                    txJSON: transaction,
+                },
             });
 
             await client.disconnect();
@@ -79,7 +80,7 @@ export const checkXummUUID = async (uuid) => {
         try {
             const response = await ApiCall({
                 method: 'GET',
-                url: `checkXummUUID/${uuid}`,
+                url: `user/validate/uuid/${uuid}`,
             });
 
             resolve(response);
@@ -121,12 +122,13 @@ export const generateQRForPayment = async ({ account, name, hospital }) => {
                 Memos: [
                     {
                         Memo: {
-                            MemoData: convertStringToHex(JSON.stringify({
-                                type: 'Registration',
-                                name,
-                                hospital,
-
-                            })),
+                            MemoData: convertStringToHex(
+                                JSON.stringify({
+                                    type: 'Registration',
+                                    name,
+                                    hospital,
+                                })
+                            ),
                         },
                     },
                 ],
@@ -135,8 +137,10 @@ export const generateQRForPayment = async ({ account, name, hospital }) => {
             // Send transaction to Backend
             const response = await ApiCall({
                 method: 'POST',
-                url: 'generateQR',
-                data: transaction,
+                url: 'user/xumm/transaction',
+                data: {
+                    txJSON: transaction,
+                },
             });
             await client.disconnect();
 
@@ -158,14 +162,14 @@ export function createWebSocketConnection(data) {
                 if (json.payload_uuidv4) {
                     const response = await ApiCall({
                         method: 'GET',
-                        url: 'verifyUUID',
+                        url: 'user/validate/uuid',
                         params: {
                             uuid: json.payload_uuidv4,
                         },
                     });
 
                     if (response.data.signed) {
-                        toast.success("QR Code Scanned successfully ✅");
+                        toast.success('QR Code Scanned successfully ✅');
                         resolve(response);
                     } else {
                         toast.error("You've cancelled the request. Please try again.");
@@ -211,8 +215,10 @@ export const generateXummLoginQR = async () => {
             // Send transaction to Backend
             const response = await ApiCall({
                 method: 'POST',
-                url: 'generateQR',
-                data: transaction,
+                url: 'user/xumm/transaction',
+                data: {
+                    txJSON: transaction,
+                },
             });
 
             resolve(response);

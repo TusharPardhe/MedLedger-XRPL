@@ -12,7 +12,7 @@ const Login = lazy(() => import('./components/login/login'));
 const Registration = lazy(() => import('./components/registration/registration'));
 const Landing = lazy(() => import('./components/landing/landing'));
 const AdminPanel = lazy(() => import('./components/admin-panel/admin-panel'));
-const UserPanel = lazy(() => import('./components/user-panel/user-panel'));
+// const UserPanel = lazy(() => import('./components/user-panel/user-panel'));
 const ErrorPage = lazy(() => import('./components/error-page/error-page'));
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
                         <Route exact path="/login" element={<Login />} />
                         <Route path="/registration" element={<Registration />} />
                         <Route path="/admin-panel" element={<AdminPanel />} />
-                        <Route path="/user-panel" element={<UserPanel />} />
+                        {/* <Route path="/user-panel" element={<UserPanel />} /> */}
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
                 </Suspense>

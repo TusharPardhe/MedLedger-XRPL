@@ -1,28 +1,26 @@
 import './admin-panel.scss';
-
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader, Button } from 'semantic-ui-react';
 import { useEffect, useMemo, useState } from 'react';
-
 import { RenderRequest } from './RenderRequest';
-import { decryptJSON } from '../../utils/app.utils';
 import { toast } from 'react-toastify';
 import { useAccountRequests } from './useAccountRequests';
 import { useNavigate } from 'react-router-dom';
+import { getItemFromLocalStorage } from '../../utils/app.utils';
+import AddRecordModal from './AddRecordModal';
 
 const AdminPanel = () => {
     const navigate = useNavigate();
     const [requests, setRequests] = useAccountRequests();
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     // Auth Check
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = getItemFromLocalStorage('token');
         if (!token) {
             navigate('/');
         } else {
-            const decrypted = decryptJSON(token);
-
-            if (decrypted.type.toLowerCase() !== 'admin') {
+            if (token.type.toLowerCase() !== 'admin') {
                 toast.error('You are not authorized to access this page');
                 navigate('/');
             }
@@ -52,8 +50,15 @@ const AdminPanel = () => {
             ) : (
                 <div className="card">
                     <div className="card-header">
-                        <h2>Registration Requests</h2>
-                        <span>All the registration requests will be listed here</span>
+                        <div className="left">
+                            <h2>Registration Requests</h2>
+                            <span>All the registration requests will be listed here</span>
+                        </div>
+                        <div className="right">
+                            <Button primary onClick={() => setShowModal(true)}>
+                                Add Record
+                            </Button>
+                        </div>
                     </div>
                     <table className="requests-table">
                         <thead>
@@ -68,6 +73,7 @@ const AdminPanel = () => {
                     </table>
                 </div>
             )}
+            <AddRecordModal open={showModal} onClose={() => setShowModal(false)} />
         </div>
     );
 };

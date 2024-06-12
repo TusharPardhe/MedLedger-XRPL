@@ -6,9 +6,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { ApiCall } from '../../api/interceptor';
 import { FaRedo } from 'react-icons/fa';
 import { Image } from 'semantic-ui-react';
-import { decryptJSON } from '../../utils/app.utils';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { setItemInLocalStorage } from '../../utils/app.utils';
 
 const Login = () => {
     const [qrCode, setQRCode] = useState(null);
@@ -24,22 +24,20 @@ const Login = () => {
                     setQRCode(null);
                 } else {
                     const response = await ApiCall({
-                        url: 'signIn',
+                        url: 'user/signIn',
                         method: 'POST',
                         data: {
                             userAddress: wsResponse.data.signer,
                         },
                     });
 
-                    const decryptJSONData = decryptJSON(response.data);
-
-                    if (decryptJSONData.error) {
+                    if (response.data.error) {
                         toast.error('You are not authorized to access this page. Please try again.');
                         return;
                     }
 
-                    localStorage.setItem('token', response.data);
-                    navigate(decryptJSONData.type.toLowerCase() === 'admin' ? '/admin-panel' : '/user-dashboard');
+                    setItemInLocalStorage('token', response.data);
+                    navigate(response.data.type.toLowerCase() === 'admin' ? '/admin-panel' : '/user-dashboard');
                 }
             } catch (error) {
                 console.log('Error in WebSocket connection:', error);

@@ -1,7 +1,7 @@
-import { AES, enc } from "crypto-js";
+import { AES, enc } from 'crypto-js';
 
 export const redirectToUrl = (url, newTab = false) => {
-    newTab ? window.open(url, "_blank") : window.open(url);
+    newTab ? window.open(url, '_blank') : window.open(url);
 };
 
 export const encryptJSON = (data) => {
@@ -24,4 +24,13 @@ export const parseJSON = (str) => {
     } catch (e) {
         return null;
     }
-}
+};
+
+export const setItemInLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
+export const getItemFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+};

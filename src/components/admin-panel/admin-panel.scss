@@ -19,6 +19,8 @@
     .card-header {
         margin-bottom: 20px;
         text-align: left;
+        display: flex;
+        justify-content: space-between;
         h2 {
             margin: 0;
             text-transform: uppercase;
