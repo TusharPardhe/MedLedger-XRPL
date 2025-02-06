@@ -19,7 +19,7 @@ const Login = () => {
         async (qrData) => {
             try {
                 const wsResponse = await createWebSocketConnection(qrData);
-                console.log('WebSocket response:', wsResponse);
+
                 if (!wsResponse) {
                     setQRCode(null);
                 } else {

@@ -1,4 +1,4 @@
-import { AES, enc } from 'crypto-js';
+import CryptoJS, { AES, enc } from 'crypto-js';
 
 export const redirectToUrl = (url, newTab = false) => {
     newTab ? window.open(url, '_blank') : window.open(url);
@@ -15,6 +15,23 @@ export const decryptJSON = (data) => {
     const decrypt = AES.decrypt(data, process.env.ENCRYPTION_KEY);
     const str = decrypt.toString(enc.Utf8);
     return JSON.parse(str);
+};
+
+export const decryptData = (ciphertext, secretCode) => {
+    try {
+        const bytes = CryptoJS.AES.decrypt(ciphertext, secretCode);
+        const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        return decryptedData;
+    } catch (error) {
+        console.error('Decryption failed:', error);
+        return null;
+    }
+};
+
+export const encryptData = (data, secretCode) => {
+    // Encrypt the form data using the secret code
+    const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), secretCode).toString();
+    return ciphertext;
 };
 
 export const parseJSON = (str) => {

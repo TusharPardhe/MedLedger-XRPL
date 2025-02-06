@@ -17,7 +17,6 @@ export const generateAccount = () => {
             if (process.env.NODE_ENV === 'development') {
                 // Connect to XRPL
                 await client.connect();
-                console.log('Connected to XRPL');
                 let x = await client.fundWallet(newAccount.classicAddress);
                 await client.disconnect();
                 resolve(x.wallet);
@@ -25,13 +24,12 @@ export const generateAccount = () => {
                 resolve(newAccount);
             }
         } catch (error) {
-            console.log('Error generating account:', error);
             reject(null);
         }
     });
 };
 
-export const generateNFTForAccount = async (account, requester) => {
+export const generateNFTForAccount = async (account, url) => {
     return new Promise(async (resolve, reject) => {
         try {
             // eslint-disable-next-line no-undef
@@ -39,27 +37,19 @@ export const generateNFTForAccount = async (account, requester) => {
 
             // Connect to XRPL
             await client.connect();
-            console.log('Connected to XRPL');
 
             const transaction = {
                 TransactionType: 'NFTokenMint',
                 Account: account,
                 NFTokenTaxon: 0,
                 Flags: 1,
-                URI: convertStringToHex(requester),
-                Memos: [
-                    {
-                        Memo: {
-                            MemoData: convertStringToHex('Registration'),
-                        },
-                    },
-                ],
+                URI: convertStringToHex(url),
             };
 
             // Send transaction to Backend
             const response = await ApiCall({
                 method: 'POST',
-                url: 'generateQR',
+                url: 'user/xumm/transaction',
                 data: {
                     txJSON: transaction,
                 },
@@ -69,7 +59,6 @@ export const generateNFTForAccount = async (account, requester) => {
 
             resolve(response);
         } catch (error) {
-            console.log('Error minting NFT:', error);
             reject(null);
         }
     });
@@ -85,7 +74,6 @@ export const checkXummUUID = async (uuid) => {
 
             resolve(response);
         } catch (error) {
-            console.log('Error checking Xumm UUID:', error);
             reject(null);
         }
     });
@@ -111,7 +99,6 @@ export const generateQRForPayment = async ({ account, name, hospital }) => {
 
             // Connect to XRPL
             await client.connect();
-            console.log('Connected to XRPL');
 
             const transaction = {
                 TransactionType: 'Payment',
@@ -146,7 +133,6 @@ export const generateQRForPayment = async ({ account, name, hospital }) => {
 
             resolve(response);
         } catch (error) {
-            console.log('Error creating sell offer:', error);
             reject(null);
         }
     });
@@ -182,7 +168,6 @@ export function createWebSocketConnection(data) {
                     toast.info('Please swipe to approve.');
                 }
             } catch (err) {
-                console.log(err);
                 toast.error('An error occurred. Please try again.');
                 ws.close();
                 reject(null);
@@ -199,7 +184,6 @@ export const generateXummLoginQR = async () => {
 
             // Connect to XRPL
             client.connect();
-            console.log('Connected to XRPL');
 
             const transaction = {
                 TransactionType: 'SignIn',
@@ -223,7 +207,6 @@ export const generateXummLoginQR = async () => {
 
             resolve(response);
         } catch (error) {
-            console.log('Error generating Xumm Login QR:', error);
             reject(null);
         }
     });

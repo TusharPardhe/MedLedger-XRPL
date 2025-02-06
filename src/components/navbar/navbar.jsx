@@ -1,6 +1,6 @@
 import './navbar.scss';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { memo } from 'react';
 
 const LogoutBtn = () => (
@@ -24,10 +24,17 @@ const MemoizedLoginBtn = memo(LoginBtn);
 
 const Navbar = () => {
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+
+    const onLogoClick = () => {
+        navigate('/');
+    };
 
     return (
         <navbar className="navbar">
-            <div className="logo">FHIR XRPL</div>
+            <div className="logo" onClick={onLogoClick}>
+                FHIR XRPL
+            </div>
             {token ? <MemoizedLoginBtn /> : <MemoizedLogoutBtn />}
         </navbar>
     );

@@ -8,7 +8,6 @@ const getAccountRequests = async () => {
     // eslint-disable-next-line no-undef
     const client = new Client(process.env.XRPL_WSS_CLIENT);
     await client.connect();
-    console.log('Connected to XRPL WebSocket');
 
     const response = await client.request({
         method: 'account_tx',

@@ -23,10 +23,9 @@ const NFTOrderComponent = () => {
         setLoading(true);
         try {
             const newAccount = await generateAccount();
-            console.log('New account:', newAccount);
             setAccount(newAccount);
         } catch (error) {
-            console.log('Error generating account:', error);
+            throw new Error(error);
         } finally {
             setLoading(false);
         }
@@ -36,7 +35,7 @@ const NFTOrderComponent = () => {
         setLoading(true);
         try {
             const payment = await generateQRForPayment({ account: account.address, ...userDetails });
-            setQR({ png: payment.data.refs.qr_png });
+            setQR({ ...qr, png: payment.data.refs.qr_png });
             const response = await createWebSocketConnection(payment);
             if (!response) {
                 setQR({
@@ -45,9 +44,8 @@ const NFTOrderComponent = () => {
                 });
                 return;
             }
-            setQR({ id: response.data.txid });
+            setQR({ ...qr, id: response.data.txid });
         } catch (error) {
-            console.log('Error generating Ticket:', error);
             toast.error('Error Generating Ticket. Please check the details again.');
         } finally {
             setLoading(false);
@@ -69,7 +67,7 @@ const NFTOrderComponent = () => {
                             <Step.Description>Generate a new account</Step.Description>
                         </Step.Content>
                     </Step>
-                    <Step completed={Boolean(qr.png)}>
+                    <Step completed={!!qr.png}>
                         <Step.Content>
                             <Step.Title>Enter Details</Step.Title>
                             <Step.Description>Fill in your personal information</Step.Description>
