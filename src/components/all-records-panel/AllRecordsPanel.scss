@@ -1,0 +1,128 @@
+.system-records-panel {     
+    width: 100%;     
+    padding: 1em;      
+
+    h1 {         
+        text-align: center;         
+        margin-bottom: 2em;         
+        color: #4a5568;         
+        font-size: 2.5em;         
+        font-weight: 600;         
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);         
+        letter-spacing: 1.5px;         
+        background: #ff5900;         
+        -webkit-background-clip: text;         
+        -webkit-text-fill-color: transparent;     
+    }      
+
+    .system-card-header {         
+        margin-bottom: 20px;         
+        text-align: left;         
+        display: flex;         
+        justify-content: space-between;         
+        align-items: center;          
+
+        h2 {             
+            margin: 0;         
+        }          
+
+        span {             
+            font-weight: lighter;             
+            color: gray;         
+        }     
+    }      
+
+    .system-card {         
+        background-color: #ffffff;         
+        border-radius: 15px;         
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);         
+        padding: 20px;         
+        margin: 20px 0;          
+
+        span {             
+            font-weight: lighter;         
+        }          
+
+        .system-table-container {             
+            overflow-x: auto;             
+            border-radius: 10px;             
+            margin-bottom: 20px;         
+        }          
+
+        .system-records-table {             
+            width: 100%;             
+            border-collapse: collapse;             
+            margin-bottom: 20px;             
+            border-radius: 10px;              
+
+            th, td {                 
+                padding: 10px;                 
+                text-align: left;                 
+                border-bottom: 1px solid #f0f0f0;             
+            }              
+
+            th {                 
+                background-color: #f9f9f9;                 
+                font-weight: 600;                 
+                text-transform: uppercase;                 
+                font-size: 0.9em;                 
+                color: #4a5568;             
+            }              
+
+            tr {                 
+                &:hover {                     
+                    background-color: #f8f9fa;                 
+                }             
+            }         
+        }     
+    }      
+
+    .system-pagination-container {         
+        display: flex;         
+        justify-content: center;         
+        margin-top: 20px;         
+        padding: 10px 0;          
+
+        .ui.pagination.menu {             
+            border: none;             
+            box-shadow: none;             
+            background: transparent;              
+
+            .item {                 
+                margin: 0 2px;                 
+                min-width: 35px;                 
+                height: 35px;                 
+                display: flex;                 
+                align-items: center;                 
+                justify-content: center;                 
+                border-radius: 8px !important;                 
+                color: #4a5568;                 
+                border: 1px solid #e2e8f0;                                  
+
+                &.active {                     
+                    background-color: #ff5900;                     
+                    color: white;                     
+                    font-weight: 600;                 
+                }                  
+
+                &:hover:not(.active) {                     
+                    background-color: #f7fafc;                 
+                }             
+            }         
+        }     
+    }      
+
+    .dimmer {         
+        background-color: rgba(255, 255, 255, 0.9) !important;                  
+
+        .loader {             
+            &:before {                 
+                border-color: #ff5900 transparent transparent;             
+            }             
+            
+            &:after {                 
+                border-color: #ff5900 transparent transparent !important;             
+            }         
+        }     
+    } 
+}

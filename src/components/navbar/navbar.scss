@@ -38,11 +38,15 @@
         .nav-link {
             margin-left: 20px;
             text-decoration: none;
-            color: #222;
-            transition: color 0.3s ease;
-
+            color: black;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            
             &:hover {
-                color: #888;
+                color: gray;
+            }
+
+            &.active {
+                font-weight: bold;
             }
         }
     }

@@ -30,14 +30,13 @@ const Login = () => {
                             userAddress: wsResponse.data.signer,
                         },
                     });
-
                     if (response.data.error) {
                         toast.error('You are not authorized to access this page. Please try again.');
                         return;
                     }
 
                     setItemInLocalStorage('token', response.data);
-                    navigate(response.data.type.toLowerCase() === 'admin' ? '/admin-panel' : '/user-dashboard');
+                    navigate('/user-panel');
                 }
             } catch (error) {
                 console.log('Error in WebSocket connection:', error);

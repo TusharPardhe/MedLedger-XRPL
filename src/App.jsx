@@ -7,6 +7,7 @@ import { Suspense, lazy } from 'react';
 
 import Navbar from './components/navbar/navbar';
 import { ToastContainer } from 'react-toastify';
+import AllRecordsPanel from './components/all-records-panel/AllRecordsPanel';
 
 const Login = lazy(() => import('./components/login/login'));
 const Registration = lazy(() => import('./components/registration/registration'));
@@ -26,7 +27,8 @@ function App() {
                         <Route exact path="/" element={<Landing />} />
                         <Route exact path="/login" element={<Login />} />
                         <Route path="/registration" element={<Registration />} />
-                        <Route path="/admin-panel" element={<AdminPanel />} />
+                        <Route path="/user-panel" element={<AdminPanel />} />
+                        <Route path="/all-records" element={<AllRecordsPanel />} />
                         {/* <Route path="/user-panel" element={<UserPanel />} /> */}
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>

@@ -1,33 +1,46 @@
 import './navbar.scss';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { memo } from 'react';
+import { getItemFromLocalStorage } from '../../utils/app.utils';
+
+const LoginMenu = () => {
+    const token = getItemFromLocalStorage('token');
+    const isAdmin = token?.type === 'admin';
+
+    return (
+        <div className="nav-links">
+            <NavLink to="/user-panel" className="nav-link">
+                My Records
+            </NavLink>
+            {isAdmin && (
+                <NavLink to="/all-records" className="nav-link">
+                    System Records
+                </NavLink>
+            )}
+            <NavLink to="/" className="nav-link" onClick={() => localStorage.removeItem('token')}>
+                Logout
+            </NavLink>
+        </div>
+    );
+};
 
 const LogoutBtn = () => (
     <div className="nav-links">
-        <Link to="/login" className="nav-link">
+        <NavLink to="/login" className="nav-link">
             Login
-        </Link>
-    </div>
-);
-
-const LoginBtn = () => (
-    <div className="nav-links">
-        <Link to="/" className="nav-link" onClick={() => localStorage.removeItem('token')}>
-            Logout
-        </Link>
+        </NavLink>
     </div>
 );
 
 const MemoizedLogoutBtn = memo(LogoutBtn);
-const MemoizedLoginBtn = memo(LoginBtn);
+const MemoizedLoginMenu = memo(LoginMenu);
 
 const Navbar = () => {
-    const token = localStorage.getItem('token');
+    const token = getItemFromLocalStorage('token');
     const navigate = useNavigate();
 
     const onLogoClick = () => {
-        navigate('/');
+        navigate(token ? '/user-panel' : '/');
     };
 
     return (
@@ -35,7 +48,7 @@ const Navbar = () => {
             <div className="logo" onClick={onLogoClick}>
                 FHIR XRPL
             </div>
-            {token ? <MemoizedLoginBtn /> : <MemoizedLogoutBtn />}
+            {token ? <MemoizedLoginMenu /> : <MemoizedLogoutBtn />}
         </navbar>
     );
 };
